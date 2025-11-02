@@ -1,6 +1,7 @@
 package controller;
 
 import controller.qna.AddAnswerController;
+import controller.qna.CreateQuestionController;
 import controller.qna.DeleteAnswerController;
 import controller.qna.QuestionController;
 import controller.user.*;
@@ -21,8 +22,10 @@ public class RequestMapping {
         controllers.put("/user/logout", new LogoutUserController());
         controllers.put("/user/update", new UpdateUserController());
         controllers.put("/user/updateForm", new ForwardController("/user/updateForm.jsp"));
-        controllers.put("/api/qna/addAnswer", new AddAnswerController());
         controllers.put("/qna/show", new QuestionController());
+        controllers.put("/qna/form", new ForwardController("/qna/form.jsp"));
+        controllers.put("/qna/create", new CreateQuestionController());
+        controllers.put("/api/qna/addAnswer", new AddAnswerController());
         controllers.put("/api/qna/deleteAnswer", new DeleteAnswerController());
     }
 
