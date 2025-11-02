@@ -4,6 +4,7 @@ import dao.UserDao;
 import model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.SessionUserUtils;
 import view.JspView;
 import view.ModelAndView;
 import view.View;
@@ -36,6 +37,14 @@ public class ForwardController implements Controller {
 
                 req.setAttribute("user", currentUser);
             }
+        } else if(forwardUrl.equals("/qna/form.jsp")){
+            if(SessionUserUtils.isLoggedIn(req.getSession())) {
+                req.setAttribute("writer", req.getSession().getAttribute("user"));
+
+                return new ModelAndView(new JspView("/qna/form.jsp"));
+            }
+            log.debug("로그인 한 회원만 질문을 남길 수 있습니다.");
+            return new ModelAndView(new JspView("/user/login.jsp"));
         }
         return new ModelAndView(new JspView(forwardUrl));
     }
