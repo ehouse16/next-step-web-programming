@@ -1,9 +1,6 @@
 package controller;
 
-import controller.qna.AddAnswerController;
-import controller.qna.CreateQuestionController;
-import controller.qna.DeleteAnswerController;
-import controller.qna.QuestionController;
+import controller.qna.*;
 import controller.user.*;
 
 import java.util.HashMap;
@@ -27,6 +24,7 @@ public class RequestMapping {
         controllers.put("/qna/create", new CreateQuestionController());
         controllers.put("/api/qna/addAnswer", new AddAnswerController());
         controllers.put("/api/qna/deleteAnswer", new DeleteAnswerController());
+        controllers.put("/m/question", new ApiQuestionController());
     }
 
     public Controller getController(String url){

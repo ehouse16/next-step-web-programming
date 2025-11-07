@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class QuestionDao {
@@ -65,5 +64,12 @@ public class QuestionDao {
         };
 
         jdbcTemplate.update(INSERTQUERY, pss);
+    }
+
+    public void updateCountOfAnswer(long questionId) throws SQLException {
+        String sql = "UPDATE QUESTIONS set countOfAnswer = countOfAnswer + 1 WHERE questionId = ?";
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+
+        jdbcTemplate.update(sql, questionId);
     }
 }

@@ -5,7 +5,6 @@ import dao.AnswerDao;
 import dao.QuestionDao;
 import view.JspView;
 import view.ModelAndView;
-import view.View;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
