@@ -72,4 +72,10 @@ public class QuestionDao {
 
         jdbcTemplate.update(sql, questionId);
     }
+
+    public void update(Question question) throws SQLException {
+        String sql = "UPDATE QUESTIONS set title = ?, contents = ? WHERE questionId = ?";
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.update(sql, question.getTitle(), question.getContents(), question.getQuestionId());
+    }
 }

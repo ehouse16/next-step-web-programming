@@ -50,6 +50,10 @@ public class User {
         return userId.equals(userFromSession.getUserId());
     }
 
+    public boolean isSameUser(String userId){
+        return userId.equals(this.userId);
+    }
+
     //테스트 assertEquals로 인해 추가
     @Override
     public boolean equals(Object o) {

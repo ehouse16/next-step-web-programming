@@ -1,6 +1,8 @@
 package controller;
 
+import dao.QuestionDao;
 import dao.UserDao;
+import model.Question;
 import model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +47,29 @@ public class ForwardController implements Controller {
             }
             log.debug("로그인 한 회원만 질문을 남길 수 있습니다.");
             return new ModelAndView(new JspView("/user/login.jsp"));
+        }
+        else if(forwardUrl.equals("/qna/updateForm.jsp")) {
+            QuestionDao questionDao = new QuestionDao();
+            Question question = questionDao.findById(Long.parseLong(req.getParameter("questionId")));
+
+            Object session = req.getSession().getAttribute("user");
+
+            if(session == null) {
+                log.error("로그인 한 회원만 수정이 가능합니다.");
+
+                return new ModelAndView(new JspView("/user/login.jsp"));
+            } else {
+                User user = SessionUserUtils.getUserFromSession(req.getSession());
+
+                if (question.isSameUser(user)) {
+                    req.setAttribute("title", question.getTitle());
+                    req.setAttribute("content", question.getContents());
+                }
+
+                //todo: 이런거는 alert로 해야하는 거 아닌가,, 바로 리다이렉트보다는,,
+                log.error("해당 질문을 한 작성자만 수정이 가능합니다.");
+                return new ModelAndView(new JspView("/"));
+            }
         }
         return new ModelAndView(new JspView(forwardUrl));
     }

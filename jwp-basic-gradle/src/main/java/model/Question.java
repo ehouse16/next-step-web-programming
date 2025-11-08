@@ -21,7 +21,6 @@ public class Question {
     }
 
     //아직 DB에 저장되지 않은 Question 객체를 생성하기 위해 임시값으로 0 넣기
-    //todo: countOfAnswers 추가 로직 구현하기
     public Question(String writer, String title, String contents){
         this(0, writer, title, contents, new Date(), 0);
     }
@@ -69,5 +68,14 @@ public class Question {
     @Override
     public int hashCode() {
         return Objects.hash(questionId, title, contents);
+    }
+
+    public boolean isSameUser(User user) {
+        return user.isSameUser(this.writer);
+    }
+
+    public void update(Question newQuestion) {
+        this.title = newQuestion.getTitle();
+        this.contents = newQuestion.getContents();
     }
 }
