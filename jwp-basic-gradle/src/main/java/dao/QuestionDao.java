@@ -78,4 +78,11 @@ public class QuestionDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.update(sql, question.getTitle(), question.getContents(), question.getQuestionId());
     }
+
+    public void delete(long questionId) throws SQLException {
+        String sql = "DELETE FROM QUESTIONS WHERE questionId = ?";
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.update(sql, questionId);
+    }
 }

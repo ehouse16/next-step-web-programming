@@ -13,6 +13,9 @@
 <div class="container" id="main">
     <div class="col-md-12 col-sm-12 col-lg-10 col-lg-offset-1">
         <div class="panel panel-default">
+            <c:if test="${not empty errorMessage}">
+                <div class="alert alert-danger" role="alert">${errorMessage}</div>
+            </c:if>
             <header class="qna-header">
                 <h2 class="qna-title">${question.title}</h2>
             </header>
@@ -39,8 +42,8 @@
                                 <a class="link-modify-article" href="/qna/updateForm?questionId=${question.questionId}">수정</a>
                             </li>
                             <li>
-                                <form class="form-delete" action="#" method="POST">
-                                    <input type="hidden" name="_method" value="DELETE">
+                                <form class="form-delete" action="/qna/delete" method="POST">
+                                    <input type="hidden" name="questionId" value="${question.questionId}" />
                                     <button class="link-delete-article" type="submit">삭제</button>
                                 </form>
                             </li>
@@ -55,7 +58,6 @@
                     <div class="qna-comment-slipp">
                         <p class="qna-comment-count"><strong>${question.countOfAnswer}</strong>개의 의견</p>
                         <div class="qna-comment-slipp-articles">
-
                             <c:forEach items="${answers}" var="each">
                                 <article class="article">
                                     <div class="article-header">
@@ -63,7 +65,7 @@
                                             <img src="https://graph.facebook.com/v2.3/1324855987/picture" class="article-author-thumb" alt="">
                                         </div>
                                         <div class="article-header-text">
-                                            ${each.writer}
+                                                ${each.writer}
                                             <div class="article-header-time"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${each.createdDate}" /></div>
                                         </div>
                                     </div>
@@ -73,7 +75,7 @@
                                     <div class="article-util">
                                         <ul class="article-util-list">
                                             <li>
-                                                <a class="link-modify-article" href="/qna/updateForm?questionId=${each.answerId}">수정</a>
+                                                <a class="link-modify-article" href="/api/qna/updateAnswer?answerId=${each.answerId}">수정</a>
                                             </li>
                                             <li>
                                                 <form class="form-delete" action="/api/qna/deleteAnswer" method="POST">
@@ -88,9 +90,6 @@
                             <div class="answerWrite">
                                 <form name="answer" method="post">
                                     <input type="hidden" name="questionId" value="${question.questionId}">
-                                    <div class="form-group col-lg-4" style="padding-top:10px;">
-                                        <input class="form-control" id="writer" name="writer" placeholder="이름">
-                                    </div>
                                     <div class="form-group col-lg-12">
                                         <textarea name="contents" id="contents" class="form-control" placeholder=""></textarea>
                                     </div>
@@ -135,7 +134,7 @@
         </div>
     </article>
 </script>
-
+<script src="/js/scripts.js"></script>
 <%@ include file="/include/footer.jspf" %>
 </body>
 </html>

@@ -22,11 +22,13 @@ public class RequestMapping {
         controllers.put("/qna/show", new QuestionController());
         controllers.put("/qna/form", new ForwardController("/qna/form.jsp"));
         controllers.put("/qna/create", new CreateQuestionController());
-        controllers.put("/api/qna/addAnswer", new AddAnswerController());
-        controllers.put("/api/qna/deleteAnswer", new DeleteAnswerController());
-        controllers.put("/m/question", new ApiQuestionController());
+        controllers.put("/api/qna/addAnswer", new ApiAddAnswerController());
+        controllers.put("/api/qna/deleteAnswer", new ApiDeleteAnswerController());
+        controllers.put("/api/question", new ApiQuestionController());
+        controllers.put("/api/question/delete", new ApiQuestionDeleteController());
         controllers.put("/qna/updateForm", new ForwardController("/qna/updateForm.jsp"));
         controllers.put("/qna/update", new UpdateQuestionController());
+        controllers.put("/qna/delete", new DeleteQuestionController());
     }
 
     public Controller getController(String url){

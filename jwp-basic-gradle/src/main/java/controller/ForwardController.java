@@ -28,10 +28,9 @@ public class ForwardController implements Controller {
 
     @Override
     public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        User user = SessionUserUtils.getUserFromSession(req.getSession());
 
         if(forwardUrl.equals("/user/updateForm.jsp")) {
-            Object user = req.getSession().getAttribute("user");
-
             if(user != null) {
                 String userId = req.getParameter("userId");
                 UserDao userDao = new UserDao();
@@ -41,7 +40,7 @@ public class ForwardController implements Controller {
             }
         } else if(forwardUrl.equals("/qna/form.jsp")){
             if(SessionUserUtils.isLoggedIn(req.getSession())) {
-                req.setAttribute("writer", req.getSession().getAttribute("user"));
+                req.setAttribute("writer", user.getUserId());
 
                 return new ModelAndView(new JspView("/qna/form.jsp"));
             }
@@ -59,15 +58,11 @@ public class ForwardController implements Controller {
 
                 return new ModelAndView(new JspView("/user/login.jsp"));
             } else {
-                User user = SessionUserUtils.getUserFromSession(req.getSession());
-
                 if (question.isSameUser(user)) {
                     req.setAttribute("title", question.getTitle());
                     req.setAttribute("content", question.getContents());
                 }
 
-                //todo: 이런거는 alert로 해야하는 거 아닌가,, 바로 리다이렉트보다는,,
-                log.error("해당 질문을 한 작성자만 수정이 가능합니다.");
                 return new ModelAndView(new JspView("/"));
             }
         }

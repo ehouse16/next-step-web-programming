@@ -13,7 +13,7 @@ public class QuestionController implements Controller {
 
     @Override
     public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        Long questionId = Long.parseLong(req.getParameter("questionId"));
+        long questionId = Long.parseLong(req.getParameter("questionId"));
         QuestionDao questionDao = new QuestionDao();
         AnswerDao answerDao = new AnswerDao();
 
