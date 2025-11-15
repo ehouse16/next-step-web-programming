@@ -9,8 +9,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class QuestionDao {
-    private static final Logger log = LoggerFactory.getLogger(QuestionDao.class);
-
     private static final String SELECTQUERY = "SELECT questionId, writer, title, contents, createdDate, countOfAnswer FROM QUESTIONS WHERE questionId = ?";
     private static final String SELECTALLQUERY = "SELECT questionId, writer, title, createdDate, countOfAnswer FROM QUESTIONS "
             + "order by questionId desc";
@@ -22,9 +20,9 @@ public class QuestionDao {
     private static final String CREATEDDATE = "createdDate";
     private static final String COUNTOFANSWER = "countOfAnswer";
 
-    public List<Question> findAll() throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
 
+    public List<Question> findAll() throws SQLException {
         RowMapper<Question> rm = rs -> new Question(
                 rs.getLong("questionId"),
                 rs.getString("writer"),
@@ -38,8 +36,6 @@ public class QuestionDao {
     }
 
     public Question findById(Long questionId) throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
         RowMapper<Question> rm = rs -> new Question(
                 rs.getLong(QUESTIONID),
                 rs.getString(WRITER),
@@ -53,8 +49,6 @@ public class QuestionDao {
     }
 
     public void insert(Question question) throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
         PreparedStatementSetter pss = ps -> {
             ps.setString(1, question.getWriter());
             ps.setString(2, question.getTitle());
@@ -68,21 +62,17 @@ public class QuestionDao {
 
     public void updateCountOfAnswer(long questionId) throws SQLException {
         String sql = "UPDATE QUESTIONS set countOfAnswer = countOfAnswer + 1 WHERE questionId = ?";
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
         jdbcTemplate.update(sql, questionId);
     }
 
     public void update(Question question) throws SQLException {
         String sql = "UPDATE QUESTIONS set title = ?, contents = ? WHERE questionId = ?";
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.update(sql, question.getTitle(), question.getContents(), question.getQuestionId());
     }
 
     public void delete(long questionId) throws SQLException {
         String sql = "DELETE FROM QUESTIONS WHERE questionId = ?";
 
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.update(sql, questionId);
     }
 }

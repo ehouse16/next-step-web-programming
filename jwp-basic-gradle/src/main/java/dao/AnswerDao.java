@@ -14,9 +14,9 @@ public class AnswerDao {
     private static final String SELECTALLQUERYBYQUESTIONID = "SELECT answerId, writer, contents, createdDate FROM ANSWERS WHERE questionId = ?";
     private static final String DELETEQUERY = "DELETE FROM ANSWERS WHERE answerId = ?";
 
-    public Answer insert(Answer answer) throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
 
+    public Answer insert(Answer answer) throws SQLException {
         PreparedStatementSetter pss = ps -> {
             ps.setString(1, answer.getWriter());
             ps.setString(2, answer.getContents());
@@ -31,8 +31,6 @@ public class AnswerDao {
     }
 
     public Answer findById(long answerId) throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
         PreparedStatementSetter pss = ps -> {
             ps.setLong(1, answerId);
         };
@@ -49,8 +47,6 @@ public class AnswerDao {
     }
 
     public List<Answer> findAllByQuestionId(long questionId) throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
         PreparedStatementSetter pss = ps -> {
             ps.setLong(1, questionId);
         };
@@ -67,8 +63,6 @@ public class AnswerDao {
     }
 
     public void delete(Long answerId) throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
         jdbcTemplate.update(DELETEQUERY, answerId);
     }
 }

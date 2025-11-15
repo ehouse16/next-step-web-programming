@@ -17,9 +17,9 @@ public class UserDao {
     private static final String SELECTONEQUERY = "SELECT userId, password, name, email FROM USERS WHERE userId = ?";
     private static final String SELECTALLQUERY = "SELECT userId, password, name, email FROM USERS";
 
-    public void insert(User user) throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    private JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
 
+    public void insert(User user) throws SQLException {
         PreparedStatementSetter pss = ps -> {
             ps.setString(1, user.getUserId());
             ps.setString(2, user.getPassword());
@@ -31,8 +31,6 @@ public class UserDao {
     }
 
     public void update(User user) throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
         PreparedStatementSetter pss = ps -> {
             ps.setString(1, user.getPassword());
             ps.setString(2, user.getName());
@@ -44,8 +42,6 @@ public class UserDao {
     }
 
     public User findByUserId(String userId) throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
         RowMapper<User> rm = createRowMapper();
 
         return jdbcTemplate.queryForObject(SELECTONEQUERY, rm, userId);
@@ -63,8 +59,6 @@ public class UserDao {
     }
 
     public List<User> findAll() throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
         RowMapper<User> rm = createRowMapper();
 
         return jdbcTemplate.query(SELECTALLQUERY, rm);
