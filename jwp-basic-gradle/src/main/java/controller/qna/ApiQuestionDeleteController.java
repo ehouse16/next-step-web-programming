@@ -3,6 +3,7 @@ package controller.qna;
 import controller.Controller;
 import model.Result;
 import service.QnaService;
+import util.SessionUserUtils;
 import view.JsonView;
 import view.ModelAndView;
 
@@ -14,6 +15,10 @@ public class ApiQuestionDeleteController implements Controller {
 
     @Override
     public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        if(!SessionUserUtils.isLoggedIn(req.getSession())) {
+            return new ModelAndView(new JsonView()).addObject("message", "로그인이 필요한 서비스입니다.");
+        }
+
         Long questionId = Long.parseLong(req.getParameter("questionId"));
 
         if(!qnaService.canDeleteQuestion(questionId)){

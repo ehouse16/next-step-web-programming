@@ -18,9 +18,7 @@ public class UpdateQuestionController implements Controller {
 
     @Override
     public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        User value = SessionUserUtils.getUserFromSession(req.getSession());
-
-        if(value == null){
+        if(!SessionUserUtils.isLoggedIn(req.getSession())) {
             log.error("로그인한 회원만 수정을 할 수 있습니다.");
 
             return new ModelAndView(new JspView("redirect:/user/login.jsp"));
@@ -30,6 +28,8 @@ public class UpdateQuestionController implements Controller {
 
         QuestionDao questionDao = new QuestionDao();
         Question question = questionDao.findById(questionId);
+
+        User value = SessionUserUtils.getUserFromSession(req.getSession());
 
         if(!question.isSameUser(value)){
             log.error("다른 사용자가 쓴 글을 수정할 수 없습니다.");

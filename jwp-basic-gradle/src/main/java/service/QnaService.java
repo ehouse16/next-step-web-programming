@@ -27,6 +27,9 @@ public class QnaService {
 
     public void deleteQuestion(Long questionId) throws Exception{
         questionDao.delete(questionId);
+        Question question = questionDao.findById(questionId);
+
+        question.updateCountOfAnswers(question.getCountOfAnswer()-1);
     }
 
     public Question findQuestion(Long questionId) throws Exception{

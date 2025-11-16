@@ -19,10 +19,8 @@ public class UpdateUserController implements Controller {
 
     @Override
     public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        User value = SessionUserUtils.getUserFromSession(req.getSession());
-
-        if(value == null){
-            log.error("로그인 한 회원만 목록을 볼 수 있습니다 -> updateUserServlet");
+        if(!SessionUserUtils.isLoggedIn(req.getSession())){
+            log.error("로그인 한 회원만 목록을 볼 수 있습니다");
 
             return new ModelAndView(new JspView("/"));
         } else{

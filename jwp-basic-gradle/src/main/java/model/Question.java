@@ -53,7 +53,6 @@ public class Question {
         return title;
     }
 
-
     //테스트 assertEquals로 인해 추가
     @Override
     public boolean equals(Object o) {
@@ -77,5 +76,9 @@ public class Question {
     public void update(Question newQuestion) {
         this.title = newQuestion.getTitle();
         this.contents = newQuestion.getContents();
+    }
+
+    public void updateCountOfAnswers(int i) {
+        this.countOfAnswer = i;
     }
 }
