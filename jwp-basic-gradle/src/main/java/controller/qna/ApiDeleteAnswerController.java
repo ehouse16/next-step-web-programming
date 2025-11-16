@@ -2,6 +2,7 @@ package controller.qna;
 
 import controller.Controller;
 import dao.AnswerDao;
+import model.Result;
 import view.JsonView;
 import view.ModelAndView;
 
@@ -17,9 +18,6 @@ public class ApiDeleteAnswerController implements Controller {
         AnswerDao answerDao = new AnswerDao();
         answerDao.delete(answerId);
 
-        ModelAndView mav = new ModelAndView(new JsonView());
-        mav.addObject("success", true);
-
-        return mav;
+        return new ModelAndView(new JsonView()).addObject("result", Result.ok()) ;
     }
 }

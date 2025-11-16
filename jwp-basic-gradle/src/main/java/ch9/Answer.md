@@ -17,4 +17,9 @@
 5. HomeController가 있으니, 이동 후 QuestionDao(jdbc)로 question 목록 가져오기
 6. HttpServletResponse에 가져온 목록을 set하고 jsp로 출력
 
+### 11. 안전한 웹 애플리케이션 개발
+- 로그인 사용자 정보는 쿠키/세션을 통해서 얻는다
+- 쿠키를 통해 정보를 얻는 거 또한 보안 측면에서는 좋지 않음
+- => 세션을 활용해 로그인 정보를 조회하자
+
 

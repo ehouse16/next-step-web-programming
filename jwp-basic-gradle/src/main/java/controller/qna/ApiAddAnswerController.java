@@ -6,8 +6,6 @@ import dao.QuestionDao;
 import model.Answer;
 import model.Result;
 import model.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import util.SessionUserUtils;
 import view.JsonView;
 import view.ModelAndView;
@@ -16,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ApiAddAnswerController implements Controller {
-    private static final Logger log = LoggerFactory.getLogger(ApiAddAnswerController.class);
-
     @Override
     public ModelAndView execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         if(!SessionUserUtils.isLoggedIn(req.getSession())) {
