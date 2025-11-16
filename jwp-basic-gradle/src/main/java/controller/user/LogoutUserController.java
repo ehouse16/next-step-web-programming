@@ -4,7 +4,6 @@ import controller.Controller;
 import util.SessionUserUtils;
 import view.JspView;
 import view.ModelAndView;
-import view.View;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

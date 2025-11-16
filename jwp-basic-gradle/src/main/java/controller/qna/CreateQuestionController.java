@@ -1,7 +1,6 @@
 package controller.qna;
 
 import controller.Controller;
-import controller.user.ListUserController;
 import dao.QuestionDao;
 import model.Question;
 import org.slf4j.Logger;

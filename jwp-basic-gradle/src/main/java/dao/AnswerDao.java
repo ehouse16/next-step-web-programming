@@ -1,11 +1,10 @@
 package dao;
 
-import exception.CustomException;
-import jdbc.ConnectionManager;
 import jdbc.KeyHolder;
 import model.Answer;
 
-import java.sql.*;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class AnswerDao {
